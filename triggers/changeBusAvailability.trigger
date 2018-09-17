@@ -16,11 +16,11 @@ trigger changeBusAvailability on BusLine__c (after insert, after undelete, after
        }
     }
     else{
-                Set<Id> countId= new Set<id>();
-                for (BusLine__c i : Trigger.old)
-                {
-                    countId.add(i.Bus__c);            
-                }
+            Set<Id> countId= new Set<id>();
+            for (BusLine__c i : Trigger.old)
+            {
+                countId.add(i.Bus__c);            
+            }
             
             Integer count = [Select Count() from BusLine__c  where Bus__c in: countId];
             if (count == [Select Count() from BusLine__c where ID in : Trigger.Old])
@@ -36,7 +36,6 @@ trigger changeBusAvailability on BusLine__c (after insert, after undelete, after
                     bus.Status__c = 'Available';
                 }
                 update buses;
-
-    }
+            }
 }
 }
