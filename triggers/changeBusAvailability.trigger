@@ -1,4 +1,4 @@
-trigger changeBusAvailability on BusLine__c (before insert, after undelete, before delete) {
+trigger changeBusAvailability on BusLine__c (after insert, after undelete, after delete) {
     if(trigger.isInsert || trigger.isUndelete){
        for (BusLine__c busline : Trigger.New)
        {
