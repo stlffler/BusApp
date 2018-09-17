@@ -2,9 +2,8 @@
     <aura:attribute name="accountId" type = "Id" default="0011t000003D1BlAAK"/>
     <aura:attribute name="availableNumber" type = "Integer"/>
     <aura:attribute name="unavailableNumber" type = "Integer"/>    
-    <aura:attribute name="err" type="Boolean" default="true"/>
-    
-    <aura:handler event="c:SomethingChanged" action="{!c.doInit}"/>   
+    <aura:attribute name="err" type="Boolean" default="true"/>    
+    <aura:handler event="c:SomethingChanged" action="{!c.Init}"/>   
     
     <aura:handler name="init" value="{! this}" action="{!c.Init}"/>
     <aura:if isTrue="{!v.err}">
