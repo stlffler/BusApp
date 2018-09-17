@@ -4,7 +4,7 @@
     <aura:attribute name="buses" type="List"/>
     <aura:attribute name="err" type="Boolean" default="true"/>
     <aura:handler event="c:SomethingChanged" action="{!c.doInit}"/>
-    <aura:handler event="c:SomethingChanged" action="{!c.doInit}"/> 
+     
     
     <aura:handler name="init" value="{! this}" action="{!c.doInit}"/>
     <aura:if isTrue="{!v.err}">
