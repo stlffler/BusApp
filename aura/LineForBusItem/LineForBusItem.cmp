@@ -1,0 +1,21 @@
+<aura:component controller="DeleteBusLineController">
+    <aura:attribute name="busId" type="Id"/>
+    <aura:attribute name="line" type="Object"/>
+    
+   <aura:registerEvent name="busLineDelete" type="c:SomethingChanged"/>                       
+            <tr class="slds-hint-parent">
+                <td data-label="Line Name">
+                    {!v.line.name}
+                </td>
+                <td data-label="Start Name">
+                    {!v.line.start_point}
+                </td>
+                <td data-label="Start Name">
+                    {!v.line.end_point}
+                </td>
+                <td data-label="Account Name">
+                    <button class="slds-button" onclick="{!c.deleteBusLine}">Delete</button>
+                </td>
+    		</tr>
+        
+</aura:component>

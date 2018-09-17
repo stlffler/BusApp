@@ -1,0 +1,59 @@
+<aura:component controller = "BusFieldsController">
+    <aura:attribute type="Id" name="busId" default="a001t000001BvAyAAK"/>
+    <aura:attribute type="Object" name="bus"/>
+    <aura:attribute type="List" name="lines"/>
+    <aura:attribute type="String" name="errmessage"/>
+    <aura:handler name="init" value="{! this}" action="{!c.Init}"/>
+    
+    	<div class="slds-col slds-size_12-of-12">
+            <aura:if isTrue="{!v.bus}">
+                <lightning:card iconName="custom:custom36" title="{!v.bus.name}" >
+                    <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_2-of-12 slds-m-left_small">
+                                    <span><img src="{!v.bus.picture}"/></span>
+                                </div>
+                                <div class="slds-col slds-size_10-of-12 slds-m-left_small">
+                                    <div>Capacity: {!v.bus.capacity}</div>
+                                    <div>Status: 
+                                        <aura:if isTrue="{!v.bus.status == 'In Use'}">
+                                            <span class="slds-badge">{!v.bus.status}</span>
+                                            <aura:set attribute="else">
+                                                <span class="slds-badge_inverse">{!v.bus.status}</span>
+                                            </aura:set>
+                                        </aura:if>
+                                    </div>
+                                    Lines:
+                                    <aura:if isTrue="{!v.lines.length &gt; 0}">
+                                        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                            <thead>
+                                                <tr class="slds-line-height_reset">
+                                                    <th class="slds-text-title_caps" scope="col">
+                                                        <div class="slds-truncate" title="Line Name">Line Name</div>
+                                                    </th>
+                                                    <th class="slds-text-title_caps" scope="col">
+                                                        <div class="slds-truncate" title="Start Point">Start Point</div>
+                                                    </th>
+                                                    <th class="slds-text-title_caps" scope="col">
+                                                        <div class="slds-truncate" title="End Point">End Point</div>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody>
+                                                <aura:iteration items = "{!v.lines}" var = "line">
+                                                    <c:LineForBusItem busId="{!v.busId}" line="{!line}"/>
+                                                </aura:iteration>
+                                            </tbody>
+                                        </table>
+                                        <aura:set attribute="else">
+                                            
+                                                <h3 class="slds-text-small slds-text-color_error">No lines found.</h3>
+                                            
+                                        </aura:set>
+                                    </aura:if>
+                                </div>
+                    </div>
+                </lightning:card>
+            </aura:if>
+      	</div>        
+    </aura:component>

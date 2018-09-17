@@ -1,0 +1,18 @@
+<aura:component controller="BusCounter">
+    <aura:attribute name="accountId" type = "Id" default="0011t000003D1BlAAK"/>
+    <aura:attribute name="availableNumber" type = "Integer"/>
+    <aura:attribute name="unavailableNumber" type = "Integer"/>    
+    <aura:attribute name="err" type="Boolean" default="true"/>
+    
+    <aura:handler event="c:SomethingChanged" action="{!c.doInit}"/>   
+    
+    <aura:handler name="init" value="{! this}" action="{!c.Init}"/>
+    <aura:if isTrue="{!v.err}">
+        <div class="slds-col slds-size_12-of-12">
+                    <div class="slds-m-left_small">
+                        Available buses: <span class="slds-badge">{!v.availableNumber}</span>
+                        In use: <span class="slds-badge red-badge">{!v.unavailableNumber}</span>
+                    </div>
+        </div>
+    </aura:if>
+</aura:component>

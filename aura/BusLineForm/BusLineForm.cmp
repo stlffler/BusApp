@@ -1,0 +1,39 @@
+<aura:component controller="BusFormInfoController"
+                implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	<aura:attribute name="recordId" type="Id"/>
+    <aura:attribute name="buses" type="Object[]"/>
+    <aura:attribute name="lines" type="Object[]"/>
+    <aura:attribute name="err" type="Boolean" default="true"/>
+    <aura:registerEvent name="BusLineAdded" type="c:SomethingChanged"/>
+    
+    <aura:handler name="init" value="{! this}" action="{!c.doInit}"/>
+    <aura:if isTrue="{!v.err}">
+        <div class="slds-col slds-size_12-of-12">
+            <lightning:card iconName="custom:custom36" title= "Add Buses to Lines">
+                <c:BusCount accountId="{!v.recordId}"/>
+                <div class="slds-m-left_small slds-m-right_small">
+                    <span>
+                        <aura:if isTrue="{!not(empty(v.buses))}">
+                            <lightning:select name="selectbus" aura:id="busList" label="Chooose the bus" required="true">
+                                <aura:iteration items="{!v.buses}" var="bus">
+                                    <option value="{!bus.busId}"> {!bus.name} </option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </aura:if>
+                    </span>
+                    <span>
+                        <aura:if isTrue="{!not(empty(v.lines))}">
+                            <lightning:select name="selectline" aura:id="lineList" label="Chooose the line" required="true">
+                                <aura:iteration items="{!v.lines}" var="line">
+                                    <option value="{!line.lineId}"> {!line.name} </option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </aura:if>
+                    </span>
+                    <lightning:button label="Save" title="Neutral action" onclick="{! c.handleSaveClick }"/>
+                    
+                </div>
+            </lightning:card>
+        </div>
+    </aura:if>
+</aura:component>
