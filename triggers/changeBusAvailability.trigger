@@ -1,19 +1,21 @@
 trigger changeBusAvailability on BusLine__c (after insert, after undelete, after delete) {
     if(trigger.isInsert || trigger.isUndelete){
-       for (BusLine__c busline : Trigger.New)
-       {
-           List<BusLine__c> buslines = [Select Bus__c From BusLine__c where Id in: trigger.New];
-           List<Id> idList = new List<Id>();
-           for (BusLine__c buslineItem : buslines){
+       List<Id> busLineIds = new List<Id>();
+        for (BusLine__c busline : Trigger.New)
+        {
+            busLineIds.add(busline.Id);
+        }
+        List<BusLine__c> buslines = [Select Bus__c From BusLine__c where Id in: busLineIds];
+        List<Id> idList = new List<Id>();
+        for (BusLine__c buslineItem : buslines){
                idList.add(buslineItem.Bus__c);
-           }
-           List<Bus__c> buses = [Select Status__c from Bus__c where ID in :idList];
-           for(Bus__c bus : buses)
-           {
-               bus.Status__c = 'In Use';
-           }
-           update buses;
-       }
+        }
+        List<Bus__c> buses = [Select Status__c from Bus__c where ID in :idList];
+        for(Bus__c bus : buses)
+        {
+            bus.Status__c = 'In Use';
+        }
+        update buses;
     }
     else{
             Set<Id> countId= new Set<id>();
